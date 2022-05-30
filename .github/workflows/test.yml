@@ -128,7 +128,8 @@ jobs:
       # Test deployment using genesis address 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
       - name: Test deployment
         run: |
-          anvil &
+          anvil >/dev/null &
+          sleep 5
           forge script script/deploy.sol \
           --rpc-url http://localhost:8545 \
           --broadcast \
