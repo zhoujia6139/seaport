@@ -11,23 +11,16 @@ import { ReferenceConduitController } from "../../../reference/conduit/Reference
 import { ReferenceConsideration } from "../../../reference/ReferenceConsideration.sol";
 import { Conduit } from "../../../contracts/conduit/Conduit.sol";
 import { Consideration } from "../../../contracts/lib/Consideration.sol";
+import { BaseConsiderationDeploy } from "../../../script/deploy.sol";
 
 /// @dev Base test case that deploys Consideration and its dependencies
-contract BaseConsiderationTest is Test {
+contract BaseConsiderationTest is BaseConsiderationDeploy {
     using stdStorage for StdStorage;
-
-    ConsiderationInterface consideration;
-    ConsiderationInterface referenceConsideration;
-    bytes32 conduitKeyOne;
-    ConduitController conduitController;
-    ConduitController referenceConduitController;
-    Conduit referenceConduit;
-    Conduit conduit;
 
     function setUp() public virtual {
         conduitKeyOne = bytes32(uint256(uint160(address(this))) << 96);
         vm.label(address(this), "testContract");
-        _deployAndConfigurePrecompiledOptimizedConsideration();
+        _deployAndConfigurePrecompiledOptimizedConsideration(address(this));
 
         string[] memory args = new string[](2);
         args[0] = "echo";
@@ -39,10 +32,10 @@ contract BaseConsiderationTest is Test {
         // with 0.8.13
         try vm.ffi(args) {
             emit log("Deploying reference from import");
-            _deployAndConfigureReferenceConsideration();
+            _deployAndConfigureReferenceConsideration(address(this));
         } catch (bytes memory) {
             emit log("Deploying reference from precompiled source");
-            _deployAndConfigurePrecompiledReferenceConsideration();
+            _deployAndConfigurePrecompiledReferenceConsideration(address(this));
         }
 
         vm.label(address(conduitController), "conduitController");
@@ -54,81 +47,6 @@ contract BaseConsiderationTest is Test {
         );
         vm.label(address(referenceConsideration), "referenceConsideration");
         vm.label(address(referenceConduit), "referenceConduit");
-    }
-
-    function _deployAndConfigureReferenceConsideration() public {
-        referenceConduitController = ConduitController(
-            address(new ReferenceConduitController())
-        );
-        referenceConsideration = ConsiderationInterface(
-            address(
-                new ReferenceConsideration(address(referenceConduitController))
-            )
-        );
-        referenceConduit = Conduit(
-            referenceConduitController.createConduit(
-                conduitKeyOne,
-                address(this)
-            )
-        );
-        referenceConduitController.updateChannel(
-            address(referenceConduit),
-            address(referenceConsideration),
-            true
-        );
-    }
-
-    ///@dev deploy optimized consideration contracts from pre-compiled source (solc-0.8.13, IR pipeline enabled)
-    function _deployAndConfigurePrecompiledOptimizedConsideration() public {
-        conduitController = ConduitController(
-            deployCode(
-                "optimized-out/ConduitController.sol/ConduitController.json"
-            )
-        );
-        consideration = ConsiderationInterface(
-            deployCode(
-                "optimized-out/Consideration.sol/Consideration.json",
-                abi.encode(address(conduitController))
-            )
-        );
-
-        //create conduit, update channel
-        conduit = Conduit(
-            conduitController.createConduit(conduitKeyOne, address(this))
-        );
-        conduitController.updateChannel(
-            address(conduit),
-            address(consideration),
-            true
-        );
-    }
-
-    ///@dev deploy reference consideration contracts from pre-compiled source (solc-0.8.7, IR pipeline disabled)
-    function _deployAndConfigurePrecompiledReferenceConsideration() public {
-        referenceConduitController = ConduitController(
-            deployCode(
-                "reference-out/ReferenceConduitController.sol/ReferenceConduitController.json"
-            )
-        );
-        referenceConsideration = ConsiderationInterface(
-            deployCode(
-                "reference-out/ReferenceConsideration.sol/ReferenceConsideration.json",
-                abi.encode(address(referenceConduitController))
-            )
-        );
-
-        //create conduit, update channel
-        referenceConduit = Conduit(
-            referenceConduitController.createConduit(
-                conduitKeyOne,
-                address(this)
-            )
-        );
-        referenceConduitController.updateChannel(
-            address(referenceConduit),
-            address(referenceConsideration),
-            true
-        );
     }
 
     function singleOfferItem(

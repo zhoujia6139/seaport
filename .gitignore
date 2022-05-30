@@ -13,6 +13,7 @@ hh-cache-ref/
 
 
 #foundry test compilation files
+broadcast
 cache
 out
 reference-out
