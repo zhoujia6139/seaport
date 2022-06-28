@@ -7,6 +7,39 @@ fork:
 		0x725efdc61c6a10b3b2cbef14371532c5a45f62b7 \
 		0x8ad272ac86c6c88683d9a60eb8ed57e6c304bb0c
 
+fork2:
+	ganache \
+	-d \
+	--chain.chainId 522 \
+	--fork ${RPC_URL} \
+	--unlock \
+		0xbEA02fB6351351bc25Dddf296920e90a4a6D6319 \
+		0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1
+
+setup:
+	make faucet
+	make approve
+
+faucet:
+	cast send 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d \
+		"transferFrom(address,address,uint256)" \
+		--legacy \
+		--gas 0xfffff \
+		--gas-price 245905827660 \
+		--rpc-url http://127.0.0.1:8545 \
+		--from 0xbEA02fB6351351bc25Dddf296920e90a4a6D6319 \
+		0xbEA02fB6351351bc25Dddf296920e90a4a6D6319 0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1 5007
+
+approve:
+	cast send 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d \
+		"setApprovalForAll(address,bool)" \
+		--legacy \
+		--gas 0xfffff \
+		--gas-price 245905827660 \
+		--rpc-url http://127.0.0.1:8545 \
+		--from 0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1 \
+		0x00000000006c3852cbEf3e08E8dF289169EdE581 true
+
 deploy:
 	npx hardhat run --network localhost scripts/deploy.js
 
