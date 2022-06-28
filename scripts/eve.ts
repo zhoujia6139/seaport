@@ -55,7 +55,7 @@ const main = async () => {
 		const ERC721ABI = require("./ERC721ABI.json");
 		const signer = provider.getSigner(baycWhale);
 		const BAYC = new ethers.Contract(BAYC_ADDRESS, ERC721ABI, signer);
-		await BAYC.transferFrom(baycWhale, eve, 1513);
+		await BAYC.transferFrom(baycWhale, eve, 2885);
 		let bal = await BAYC.balanceOf(eve);
 		console.log(bal);
 	}
@@ -66,7 +66,7 @@ const main = async () => {
 	await BAYC.connect(signer).setApprovalForAll(seaport, true)
 
 	let token = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d";
-	let identifierOrCriteria = toBN(1513)
+	let identifierOrCriteria = toBN(2885)
 	let startAmount = toBN(1)
 	let endAmount = toBN(1)
 	let offer: OfferItem[] = [
@@ -80,11 +80,9 @@ const main = async () => {
 		),
 	];
 
-	// const consideration = [
-	// 	getItemETH(utils.parseEther("1"), utils.parseEther("1"), eve),
-	// ];
     const consideration = [
-		getItem721(token, toBN(7796), 1, 1, eve),
+		getItem721(token, toBN(1388), 1, 1, eve),
+        getItemETH(utils.parseEther("1"), utils.parseEther("1"), eve),
 	];
 
 	const SEAPORTABI =

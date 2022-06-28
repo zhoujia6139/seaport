@@ -31,3 +31,9 @@ make charlie
 make dave
 
 ## 5 Eve and Ferdie: ERC721 to ERC20+ERC721
+// initial network
+make fork4
+// make an ERC721 order
+make eve
+// take eve's order with ERC721
+make ferdie
