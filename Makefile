@@ -26,6 +26,16 @@ fork3:
 		0x22d491Bde2303f2f43325b2108D26f1eAbA1e32b \
 		0x8ad272ac86c6c88683d9a60eb8ed57e6c304bb0c
 
+fork4:
+	ganache \
+	-d \
+	--chain.chainId 522 \
+	--fork ${RPC_URL} \
+	--unlock \
+		0xd03ea8624C8C5987235048901fB614fDcA89b117 \
+		0x8ad272ac86c6c88683d9a60eb8ed57e6c304bb0c \
+		0x47ac0fb4f2d84898e4d9e7b4dab3c24507a6d503
+
 setup:
 	make faucet
 	make approve
@@ -64,6 +74,12 @@ charlie:
 
 dave:
 	npx ts-node scripts/dave.ts
+
+eve:
+	npx ts-node scripts/eve.ts
+
+ferdie:
+	npx ts-node scripts/ferdie.ts
 
 # check user bal
 # we are using a bored ape in this example

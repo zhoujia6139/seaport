@@ -29,3 +29,5 @@ make fork3
 make charlie
 // take charlie's order with ERC721
 make dave
+
+## 5 Eve and Ferdie: ERC721 to ERC20+ERC721
