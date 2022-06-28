@@ -1,5 +1,11 @@
 
+
 ## 1
+// reques a rpc link from here, 
+// will be used as `RPC_URL` in Makefile
+https://infura.io/dashboard
+
+
 https://github.com/trufflesuite/ganache
 sudo npm install ganache --global
 sudo npm install --save-dev hardhat -g
