@@ -14,7 +14,8 @@ fork2:
 	--fork ${RPC_URL} \
 	--unlock \
 		0xbEA02fB6351351bc25Dddf296920e90a4a6D6319 \
-		0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1
+		0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1 \
+		0x8ad272ac86c6c88683d9a60eb8ed57e6c304bb0c
 
 setup:
 	make faucet
