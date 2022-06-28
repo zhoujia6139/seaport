@@ -79,6 +79,18 @@ bobbal:
 		--rpc-url http://127.0.0.1:8545 \
 		0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0
 
+charliebal:
+	cast call 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d \
+		"tokenOfOwnerByIndex(address,uint256)" \
+		--rpc-url http://127.0.0.1:8545 \
+		0x22d491Bde2303f2f43325b2108D26f1eAbA1e32b 0
+
+davebal:
+	cast call 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d \
+		"tokenOfOwnerByIndex(address,uint256)" \
+		--rpc-url http://127.0.0.1:8545 \
+		0xE11BA2b4D45Eaed5996Cd0823791E0C93114882d 0
+
 # notes
 #
 # prior to setup set `export RPC_URL=<YOUR MAINNET RPC>` 

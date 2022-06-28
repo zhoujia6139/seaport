@@ -13,6 +13,7 @@ import {
 
 import {
 	getItemETH,
+    getItem721,
 	convertSignatureToEIP2098,
 	getOfferOrConsiderationItem,
 } from "../test/utils/encoding";
@@ -43,10 +44,6 @@ const main = async () => {
 	let signer = new ethers.Wallet(priv_key);
 	signer = signer.connect(provider);
 	const charlie = "0x22d491Bde2303f2f43325b2108D26f1eAbA1e32b";
-
-	// // Local deployment
-	// const conduitController = "0x79f86fdb626533f6ed19722d7cc3784ed24876dd";
-	// const seaport = "0xdf2d0269776aa20c6ab98ed750562144b509151d";
 
 	const conduitController = "0x00000000F9490004C11Cef243f5400493c00Ad63";
 	const seaport = "0x00000000006c3852cbEf3e08E8dF289169EdE581";
@@ -83,8 +80,11 @@ const main = async () => {
 		),
 	];
 
-	const consideration = [
-		getItemETH(utils.parseEther("1"), utils.parseEther("1"), charlie),
+	// const consideration = [
+	// 	getItemETH(utils.parseEther("1"), utils.parseEther("1"), charlie),
+	// ];
+    const consideration = [
+		getItem721(token, toBN(7796), 1, 1, charlie),
 	];
 
 	const SEAPORTABI =
