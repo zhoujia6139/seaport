@@ -21,3 +21,11 @@ make setup
 make alice
 // take alice's order with 1 ETH
 make bob
+
+## 4 Charlie and Dave: ERC721 to ERC721
+// initial network
+make fork3
+// make an ERC721 order
+make charlie
+// take charlie's order with ERC721
+make dave
