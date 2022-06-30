@@ -36,6 +36,15 @@ fork4:
 		0x8ad272ac86c6c88683d9a60eb8ed57e6c304bb0c \
 		0x47ac0fb4f2d84898e4d9e7b4dab3c24507a6d503
 
+fork5:
+	ganache \
+	-d \
+	--chain.chainId 522 \
+	--fork ${RPC_URL} \
+	--unlock \
+		0x8ad272ac86c6c88683d9a60eb8ed57e6c304bb0c \
+		0xe78388b4ce79068e89bf8aa7f218ef6b9ab0e9d0
+
 setup:
 	make faucet
 	make approve
@@ -81,6 +90,9 @@ eve:
 ferdie:
 	npx ts-node scripts/ferdie.ts
 
+match:
+	npx ts-node scripts/match_order.ts
+
 # check user bal
 # we are using a bored ape in this example
 alicebal:
@@ -109,8 +121,8 @@ davebal:
 
 # notes
 #
-# prior to setup set `export RPC_URL=<YOUR MAINNET RPC>` 
+# prior to setup set `export RPC_URL=<YOUR MAINNET RPC>`
 # to setup the demo, run `make fork` in one terminal
-# and run `make alice` in the second terminal. 
+# and run `make alice` in the second terminal.
 # The second command will move a BAYC into alices wallet
 # we can check this with `make alicebal`
