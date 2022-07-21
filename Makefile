@@ -93,6 +93,9 @@ ferdie:
 match:
 	npx ts-node scripts/match_order.ts
 
+testseaportjs:
+	npx ts-node scripts/test_seaport-js.ts
+
 # check user bal
 # we are using a bored ape in this example
 alicebal:
